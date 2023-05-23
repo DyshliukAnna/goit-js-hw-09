@@ -16,11 +16,12 @@ function onStartButtonClick() {
     refs.startButton.disabled = true;
     refs.stopButton.disabled = false;
     timerId = setInterval(setColor, 1000);
-    
+}    
+
 function setColor() {
     document.body.style.backgroundColor = getRandomHexColor() ;
 }
-}
+
 
 function onStopButtonClick() {
     refs.startButton.disabled = false;
