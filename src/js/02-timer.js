@@ -2,6 +2,7 @@ import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
 
 const DELAY = 1000;
+let timeId = null;
 
 const refs = {
     startButton: document.querySelector("button[data-start]"),
@@ -63,7 +64,6 @@ function counter() {
   }, 1000);
 }
     
-
 
 function convertMs(ms) {
     // Number of milliseconds per unit of time
