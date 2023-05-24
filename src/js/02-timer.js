@@ -13,8 +13,6 @@ const refs = {
 
   
 }
-
-refs.startButton.addEventListener("click", flatpickr);
 // flatpickr();
 
 
@@ -26,21 +24,46 @@ const options = {
     onClose(selectedDates) {
         // const currentDate = Date.now;
         // const pastOrFutureDate = selectedDates - currentDate;
-        if ( selectedDates[0] < new Date()) {
+        if (selectedDates[0] < new Date()) {
             alert("Please choose a date in the future");
             return
         } else {
             refs.startButton.disabled = false;
             setInterval((convertMs) => {
                 
-            },DELAY)
-            
+            },DELAY)  
         }
 
   },
 };
 
 flatpickr(refs.input, options);
+refs.startButton.disabled = true;
+
+
+function addLeadingZero(value) {
+  return value.toString().padStart(2, '0');
+}
+
+refs.startButton.addEventListener('click', counter);
+
+function counter() {
+  const timeoutId = setInterval(() => {
+    const ms = new Date(refs.input.value) - new Date();
+    refs.startButton.disabled = true;;
+    if (ms >= 0) {
+      let convertTimeObject = convertMs(ms);
+      refs.dateOut.textContent = addLeadingZero(convertTimeObject.days);
+      refs.hourOut.textContent = addLeadingZero(convertTimeObject.hours);
+      refs.minuteOut.textContent = addLeadingZero(convertTimeObject.minutes);
+      refs.secondOut.textContent = addLeadingZero(convertTimeObject.seconds);
+    } else {
+      clearInterval(timeoutId);
+    }
+  }, 1000);
+}
+    
+
 
 function convertMs(ms) {
     // Number of milliseconds per unit of time
@@ -60,6 +83,7 @@ function convertMs(ms) {
 
     return { days, hours, minutes, seconds };
 }
+
 // const date = new Date;
 // const timer = {
 //     start() {
